@@ -1,9 +1,10 @@
 
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="th">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
 <title>Zero e-waste Carbon Impact dashboard</title>
 <style>
   :root{ --primary:#16a4dd; --ink:#1e1e1e; --muted:#666666; --bg:#ffffff; }
@@ -44,101 +45,113 @@
     transform:translate(-50%,-120%); white-space:nowrap;
   }
   @media (max-width: 980px){ .two-col{ grid-template-columns: 1fr; } .kpi{ grid-column: span 12; } }
+
+/* Subtle page background that doesn't interfere with content */
+body { background-color: #ffffff; }
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: url("white paper.jpg") center/cover no-repeat;
+  opacity: 0.18;           /* subtle */
+  z-index: 0;              /* stay behind everything */
+  pointer-events: none;    /* never intercept clicks */
+  filter: saturate(0.9) brightness(1.02);
+}
+/* Ensure all content stays above the background */
+header, main, .card, .container { position: relative; z-index: 2; }
 </style>
 </head>
 <body>
-  <header>
-    <div class="container">
-      <div class="title"><span class="blue">Zero e-waste</span> Carbon Impact dashboard</div>
-    </div>
-  </header>
+<img alt="Logo" src="logo-idc (1).png" style="position:fixed; top:12px; right:14px; width:56px; height:auto; z-index:5; opacity:0.95; pointer-events:none;"/>
 
-  <main class="container">
-    <section class="card">
-      <div class="kpi-grid">
-        <div class="kpi">
-          <div class="badge">TOTAL</div>
-          <h3>Total carbon scores</h3>
-          <div class="value"><span id="kpi-carbon">-</span> <span style="font-size:14px; font-weight:700; color:var(--muted)">Kg CO₂e</span></div>
-        </div>
-        <div class="kpi">
-          <div class="badge">TOTAL</div>
-          <h3>Total items</h3>
-          <div class="value"><span id="kpi-items">-</span> <span style="font-size:14px; font-weight:700; color:var(--muted)">items</span></div>
-        </div>
-        <div class="kpi">
-          <div class="badge">TOTAL</div>
-          <h3>Total weights</h3>
-          <div class="value"><span id="kpi-weights">-</span> <span style="font-size:14px; font-weight:700; color:var(--muted)">kg</span></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="grid" style="margin-top:14px;">
-      <div class="card" style="grid-column: span 12">
-        <h3 class="panel-title">สัดส่วนร้อยละของขยะแต่ละประเภท (Donut chart)</h3>
-        <div class="two-col">
-          <div class="viz viz-donut">
-            <svg id="donut" viewBox="0 0 320 320" aria-label="e-waste donut chart"></svg>
-            <div id="tt" class="tooltip" style="display:none;"></div>
-          </div>
-          <div>
-            <div class="scroll-pane">
-              <table class="table" id="typeTable">
-                <thead><tr><th>ประเภท</th><th style="width:120px;">จำนวน (ชิ้น)</th><th style="width:120px;">สัดส่วน (%)</th></tr></thead>
-                <tbody></tbody>
-              </table>
-            </div>
-            <div class="legend" id="legend"></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card" style="grid-column: span 12">
-        <div class="tabs">
-          <button class="tab active" data-tab="people">Top 5 Individuals</button>
-          <button class="tab" data-tab="departments">Top 5 Departments</button>
-        </div>
-        <div id="tab-panels">
-          <div id="panel-people">
-            <div class="hscroll"><div class="innerwide">
-              <div class="two-col">
-                <div class="viz"><svg id="bar-people" viewBox="0 0 680 320"></svg></div>
-                <div>
-                  <table class="table" id="tbl-people">
-                    <thead><tr><th>บุคคล</th><th style="width:160px;">Carbon Score (kg CO₂e)</th><th style="width:90px;">จำนวน (ชิ้น)</th></tr></thead>
-                    <tbody></tbody>
-                  </table>
-                </div>
-              </div>
-            </div></div>
-          </div>
-          <div id="panel-departments" style="display:none;">
-            <div class="hscroll"><div class="innerwide">
-              <div class="two-col">
-                <div class="viz"><svg id="bar-dept" viewBox="0 0 680 320"></svg></div>
-                <div>
-                  <table class="table" id="tbl-dept">
-                    <thead><tr><th>หน่วยงาน</th><th style="width:160px;">Carbon Score (kg CO₂e)</th><th style="width:90px;">จำนวน (ชิ้น)</th></tr></thead>
-                    <tbody></tbody>
-                  </table>
-                </div>
-              </div>
-            </div></div>
-          </div>
-        </div>
-        <div class="subtle" style="margin-top:8px">*เลื่อนไปทางซ้าย/ขวาเพื่อดูข้อมูลเพิ่มเติม</div>
-      </div>
-    </section>
-
-    <section class="card" style="grid-column: span 12">
-      <div class="subtle">
+<header>
+<div class="container">
+<div class="title"><span class="blue">Zero e-waste</span> Carbon Impact dashboard</div>
+</div>
+</header>
+<main class="container">
+<section class="card">
+<div class="kpi-grid">
+<div class="kpi">
+<div class="badge">TOTAL</div>
+<h3>Total carbon scores</h3>
+<div class="value"><span id="kpi-carbon">-</span> <span style="font-size:14px; font-weight:700; color:var(--muted)">Kg CO₂e</span></div>
+</div>
+<div class="kpi">
+<div class="badge">TOTAL</div>
+<h3>Total items</h3>
+<div class="value"><span id="kpi-items">-</span> <span style="font-size:14px; font-weight:700; color:var(--muted)">items</span></div>
+</div>
+<div class="kpi">
+<div class="badge">TOTAL</div>
+<h3>Total weights</h3>
+<div class="value"><span id="kpi-weights">-</span> <span style="font-size:14px; font-weight:700; color:var(--muted)">kg</span></div>
+</div>
+</div>
+</section>
+<section class="grid" style="margin-top:14px;">
+<div class="card" style="grid-column: span 12">
+<h3 class="panel-title">สัดส่วนร้อยละของขยะแต่ละประเภท (Donut chart)</h3>
+<div class="two-col">
+<div class="viz viz-donut">
+<svg aria-label="e-waste donut chart" id="donut" viewbox="0 0 320 320"></svg>
+<div class="tooltip" id="tt" style="display:none;"></div>
+</div>
+<div>
+<div class="scroll-pane">
+<table class="table" id="typeTable">
+<thead><tr><th>ประเภท</th><th style="width:120px;">จำนวน (ชิ้น)</th><th style="width:120px;">สัดส่วน (%)</th></tr></thead>
+<tbody></tbody>
+</table>
+</div>
+<div class="legend" id="legend"></div>
+</div>
+</div>
+</div>
+<div class="card" style="grid-column: span 12">
+<div class="tabs">
+<button class="tab active" data-tab="people">Top 5 Individuals</button>
+<button class="tab" data-tab="departments">Top 5 Departments</button>
+</div>
+<div id="tab-panels">
+<div id="panel-people">
+<div class="hscroll"><div class="innerwide">
+<div class="two-col">
+<div class="viz"><svg id="bar-people" viewbox="0 0 680 320"></svg></div>
+<div>
+<table class="table" id="tbl-people">
+<thead><tr><th>บุคคล</th><th style="width:160px;">Carbon Score (kg CO₂e)</th><th style="width:90px;">จำนวน (ชิ้น)</th></tr></thead>
+<tbody></tbody>
+</table>
+</div>
+</div>
+</div></div>
+</div>
+<div id="panel-departments" style="display:none;">
+<div class="hscroll"><div class="innerwide">
+<div class="two-col">
+<div class="viz"><svg id="bar-dept" viewbox="0 0 680 320"></svg></div>
+<div>
+<table class="table" id="tbl-dept">
+<thead><tr><th>หน่วยงาน</th><th style="width:160px;">Carbon Score (kg CO₂e)</th><th style="width:90px;">จำนวน (ชิ้น)</th></tr></thead>
+<tbody></tbody>
+</table>
+</div>
+</div>
+</div></div>
+</div>
+</div>
+<div class="subtle" style="margin-top:8px">*เลื่อนไปทางซ้าย/ขวาเพื่อดูข้อมูลเพิ่มเติม</div>
+</div>
+</section>
+<section class="card" style="grid-column: span 12">
+<div class="subtle">
         วิธีคำนวณ: รวมจำนวนชิ้นของ e-waste ทุกประเภท → แปลงเป็นน้ำหนักรวม (kg) ด้วยน้ำหนักเฉลี่ย/ชิ้น → คูณค่า factor 3.85 kg CO₂e/kg เพื่อให้ได้ Carbon Score.<br/>
         สูตร: <b>Carbon Score (kg CO₂e) = Total Weight (kg) × 3.85</b>
-      </div>
-    </section>
-  </main>
-
+</div>
+</section>
+</main>
 <script>
 const EMBEDDED_ROWS = [{"name": "สุภาวดี ทองมา", "department": "คณะบริหารธุรกิจ (บธ.)", "item_type": "โทรศัพท์มือถือ (Phone)", "quantity": 1.0}, {"name": "สุภาวดี ทองมา", "department": "คณะบริหารธุรกิจ (บธ.)", "item_type": "แบตเตอรี่โทรศัพท์ (Phone battery)", "quantity": 1.0}, {"name": "สุภาวดี ทองมา", "department": "คณะบริหารธุรกิจ (บธ.)", "item_type": "สายชาร์จโทรศัพท์ (Phone charger)", "quantity": 2.0}, {"name": "สุภาวดี ทองมา", "department": "คณะบริหารธุรกิจ (บธ.)", "item_type": "อแดปเตอร์ (Adapter)", "quantity": 1.0}, {"name": "สุภาวดี ทองมา", "department": "คณะบริหารธุรกิจ (บธ.)", "item_type": "หูฟัง (Earphones/Headphones)", "quantity": 1.0}, {"name": "สุภาวดี ทองมา", "department": "คณะบริหารธุรกิจ (บธ.)", "item_type": "ลำโพง (Speakers)", "quantity": 1.0}, {"name": "สุภาวดี ทองมา", "department": "คณะบริหารธุรกิจ (บธ.)", "item_type": "โทรศัพท์บ้าน (Telephone)", "quantity": 1.0}, {"name": "ชนาภัทร บุญเกิด", "department": "คณะสถิติประยุกต์ (สป.)", "item_type": "ถ่านไฟฉาย (Battery)", "quantity": 50.0}, {"name": "สุภักตรา เส็งหะพันธุ์", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "เม้าส์ (Mouse)", "quantity": 1.0}, {"name": "สุภักตรา เส็งหะพันธุ์", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "ไดร์เป่าผม (Hair dryer)", "quantity": 1.0}, {"name": "วิภาพร พรมเมือง", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "โทรศัพท์มือถือ (Phone)", "quantity": 3.0}, {"name": "วิภาพร พรมเมือง", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "แบตเตอรี่โทรศัพท์ (Phone battery)", "quantity": 3.0}, {"name": "สุรพงศ์ เนาวเศรษฐ์", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "โทรศัพท์บ้าน (Telephone)", "quantity": 1.0}, {"name": "สุรพงศ์ เนาวเศรษฐ์", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "เม้าส์ (Mouse)", "quantity": 4.0}, {"name": "สุรพงศ์ เนาวเศรษฐ์", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "ชิ้นส่วนคอมพิวเตอร์ (Computer parts)", "quantity": 1.0}, {"name": "สุรพงศ์ เนาวเศรษฐ์", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "จอยเกม (Joystick)", "quantity": 14.0}, {"name": "คณาธิศ พี่กั๊ก", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "แบตเตอรี่โทรศัพท์ (Phone battery)", "quantity": 4.0}, {"name": "คณาธิศ พี่กั๊ก", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "อแดปเตอร์ (Adapter)", "quantity": 1.0}, {"name": "คณาธิศ พี่กั๊ก", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "แบตเตอรี่โน๊ตบุ๊ก (Laptop battery)", "quantity": 1.0}, {"name": "คณาธิศ พี่กั๊ก", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "ถ่านไฟฉาย (Battery)", "quantity": 107.0}, {"name": "คณาธิศ พี่กั๊ก", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "จอยเกม (Joystick)", "quantity": 1.0}, {"name": "คณาธิศ พี่กั๊ก", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "วิทยุสื่อสาร (Radio)", "quantity": 3.0}, {"name": "เสริมศักดิ์ สุนทรศัพท์", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "ถ่านไฟฉาย (Battery)", "quantity": 1.0}, {"name": "เสริมศักดิ์ สุนทรศัพท์", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "จอยเกม (Joystick)", "quantity": 1.0}, {"name": "วิไลวรรณ นวลช่วย", "department": "คณะภาษาและการสื่อสาร (ภส.)", "item_type": "โทรศัพท์มือถือ (Phone)", "quantity": 6.0}, {"name": "วิไลวรรณ นวลช่วย", "department": "คณะภาษาและการสื่อสาร (ภส.)", "item_type": "แบตเตอรี่โทรศัพท์ (Phone battery)", "quantity": 6.0}, {"name": "วิไลวรรณ นวลช่วย", "department": "คณะภาษาและการสื่อสาร (ภส.)", "item_type": "หูฟัง (Earphones/Headphones)", "quantity": 1.0}, {"name": "วิไลวรรณ นวลช่วย", "department": "คณะภาษาและการสื่อสาร (ภส.)", "item_type": "ถ่านไฟฉาย (Battery)", "quantity": 1.0}, {"name": "นิธิดา วันชัยนาวิน", "department": "คณะภาษาและการสื่อสาร (ภส.)", "item_type": "โทรศัพท์มือถือ (Phone)", "quantity": 2.0}, {"name": "นิธิดา วันชัยนาวิน", "department": "คณะภาษาและการสื่อสาร (ภส.)", "item_type": "แบตเตอรี่โทรศัพท์ (Phone battery)", "quantity": 2.0}, {"name": "นิธิดา วันชัยนาวิน", "department": "คณะภาษาและการสื่อสาร (ภส.)", "item_type": "แท็บเล็ต (Tablet)", "quantity": 1.0}, {"name": "นิธิดา วันชัยนาวิน", "department": "คณะภาษาและการสื่อสาร (ภส.)", "item_type": "เครื่องม้วนผม (Hair curler) / เครื่องหนีบผม (Hair straightener)", "quantity": 1.0}, {"name": "นางสาวบุษราคัม หมื่นทอง", "department": "คณะภาษาและการสื่อสาร (ภส.)", "item_type": "การ์ดรีดเดอร์ (Card reader) / ยูเอสบี (USB)", "quantity": 34.0}, {"name": "นศ.ปทุมวดี  โลศิริ", "department": "คณะพัฒนาสังคมและยุทธศาสตร์การบริหาร (พค.)", "item_type": "โทรศัพท์มือถือ (Phone)", "quantity": 1.0}, {"name": "นศ.ปทุมวดี  โลศิริ", "department": "คณะพัฒนาสังคมและยุทธศาสตร์การบริหาร (พค.)", "item_type": "แบตเตอรี่โทรศัพท์ (Phone battery)", "quantity": 1.0}, {"name": "นศ.ปทุมวดี  โลศิริ", "department": "คณะพัฒนาสังคมและยุทธศาสตร์การบริหาร (พค.)", "item_type": "แท็บเล็ต (Tablet)", "quantity": 1.0}, {"name": "นศ.ปทุมวดี  โลศิริ", "department": "คณะพัฒนาสังคมและยุทธศาสตร์การบริหาร (พค.)", "item_type": "สายชาร์จโทรศัพท์ (Phone charger)", "quantity": 5.0}, {"name": "นศ.ปทุมวดี  โลศิริ", "department": "คณะพัฒนาสังคมและยุทธศาสตร์การบริหาร (พค.)", "item_type": "ลำโพง (Speakers)", "quantity": 2.0}, {"name": "นศ.ปทุมวดี  โลศิริ", "department": "คณะพัฒนาสังคมและยุทธศาสตร์การบริหาร (พค.)", "item_type": "สายชาร์จโน๊ตบุ๊ก (Laptop charger)", "quantity": 1.0}, {"name": "ศรายุทธ เอี่ยมสมบัติ", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "สายชาร์จโทรศัพท์ (Phone charger)", "quantity": 9.0}, {"name": "ศรายุทธ เอี่ยมสมบัติ", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "เม้าส์ (Mouse)", "quantity": 1.0}, {"name": "ศรายุทธ เอี่ยมสมบัติ", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "เครื่องคิดเลข (Calculator)", "quantity": 1.0}, {"name": "ศรายุทธ เอี่ยมสมบัติ", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "เครื่องม้วนผม (Hair curler) / เครื่องหนีบผม (Hair straightener)", "quantity": 2.0}, {"name": "นายสรายุทธ เอี่ยมสมบัติ", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "โทรศัพท์มือถือ (Phone)", "quantity": 3.0}, {"name": "นายสรายุทธ เอี่ยมสมบัติ", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "แบตเตอรี่โทรศัพท์ (Phone battery)", "quantity": 3.0}, {"name": "นายสรายุทธ เอี่ยมสมบัติ", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "อแดปเตอร์ (Adapter)", "quantity": 1.0}, {"name": "นายสรายุทธ เอี่ยมสมบัติ", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "โทรศัพท์บ้าน (Telephone)", "quantity": 1.0}, {"name": "นายสรายุทธ เอี่ยมสมบัติ", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "เครื่องคิดเลข (Calculator)", "quantity": 1.0}, {"name": "นายสรายุทธ เอี่ยมสมบัติ", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "รีโมท (Remote)", "quantity": 3.0}, {"name": "อัญญา นิ่มสุข", "department": "คณะบริหารการพัฒนาสิ่งแวดล้อม (สว.)", "item_type": "สายชาร์จโทรศัพท์ (Phone charger)", "quantity": 1.0}, {"name": "อัญญา นิ่มสุข", "department": "คณะบริหารการพัฒนาสิ่งแวดล้อม (สว.)", "item_type": "หูฟัง (Earphones/Headphones)", "quantity": 1.0}, {"name": "อัญญา นิ่มสุข", "department": "คณะบริหารการพัฒนาสิ่งแวดล้อม (สว.)", "item_type": "เม้าส์ (Mouse)", "quantity": 3.0}, {"name": "อัญญา นิ่มสุข", "department": "คณะบริหารการพัฒนาสิ่งแวดล้อม (สว.)", "item_type": "ถ่านไฟฉาย (Battery)", "quantity": 2.0}, {"name": "เสริมศักดิ์ สุนทรศัพท์", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "ถ่านไฟฉาย (Battery)", "quantity": 1.0}, {"name": "เสริมศักดิ์ สุนทรศัพท์", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "จอยเกม (Joystick)", "quantity": 1.0}, {"name": "อัจฉริยา เปรมเหล็ก", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "หูฟัง (Earphones/Headphones)", "quantity": 1.0}, {"name": "อัจฉริยา เปรมเหล็ก", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "คีย์บอร์ด (Keyboard)", "quantity": 1.0}, {"name": "ภูริณัฐ มะแป้น", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "หูฟัง (Earphones/Headphones)", "quantity": 1.0}, {"name": "พงศ์วิษณุ หูทิพย์", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "เม้าส์ (Mouse)", "quantity": 1.0}, {"name": "วราเทพ รัตนวรรณี", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "โน๊ตบุ๊ก (Laptop)", "quantity": 1.0}, {"name": "วราเทพ รัตนวรรณี", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "แบตเตอรี่โน๊ตบุ๊ก (Laptop battery)", "quantity": 1.0}, {"name": "วราเทพ รัตนวรรณี", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "ฮาร์ดดิสก์ (Hard disk)", "quantity": 1.0}, {"name": "ประภาพรรณ มานิตสุภวงษ์", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "ถ่านไฟฉาย (Battery)", "quantity": 5.0}, {"name": "ประภาพรรณ มานิตสุภวงษ์", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "รีโมท (Remote)", "quantity": 1.0}, {"name": "ธวัชชัย กาวรรณ", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "เม้าส์ (Mouse)", "quantity": 9.0}, {"name": "ธวัชชัย กาวรรณ", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "ฮาร์ดดิสก์ (Hard disk)", "quantity": 36.0}, {"name": "ธวัชชัย กาวรรณ", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "ชิ้นส่วนคอมพิวเตอร์ (Computer parts)", "quantity": 31.0}, {"name": "ธวัชชัย กาวรรณ", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "เครื่องเล่น DVD (DVD player)", "quantity": 4.0}, {"name": "ธวัชชัย กาวรรณ", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "การ์ดรีดเดอร์ (Card reader) / ยูเอสบี (USB)", "quantity": 1.0}, {"name": "กฤตย์ บุญชนะวิวัฒน์", "department": "กองบริการการศึกษา (กบ.)", "item_type": "ถ่านไฟฉาย (Battery)", "quantity": 3.0}, {"name": "อิลฮาม เด่นยิ่งโยชน์", "department": "สำนักวิจัย (วจ.)", "item_type": "สายชาร์จโน๊ตบุ๊ก (Laptop charger)", "quantity": 1.0}, {"name": "อิลฮาม เด่นยิ่งโยชน์", "department": "สำนักวิจัย (วจ.)", "item_type": "นาฬิกา (Clock)", "quantity": 1.0}, {"name": "นางสาวรัชชา เชาวน์ศิริ", "department": "สำนักวิจัย (วจ.)", "item_type": "รีโมท (Remote)", "quantity": 1.0}, {"name": "ทัศนีย์ ทองคำ", "department": "คณะรัฐประศาสนศาสตร์ (รศ.)", "item_type": "โทรศัพท์มือถือ (Phone)", "quantity": 1.0}, {"name": "ทัศนีย์ ทองคำ", "department": "คณะรัฐประศาสนศาสตร์ (รศ.)", "item_type": "แบตเตอรี่โทรศัพท์ (Phone battery)", "quantity": 2.0}, {"name": "ทัศนีย์ ทองคำ", "department": "คณะรัฐประศาสนศาสตร์ (รศ.)", "item_type": "แท็บเล็ต (Tablet)", "quantity": 1.0}, {"name": "ทัศนีย์ ทองคำ", "department": "คณะรัฐประศาสนศาสตร์ (รศ.)", "item_type": "หูฟัง (Earphones/Headphones)", "quantity": 1.0}, {"name": "ทัศนีย์ ทองคำ", "department": "คณะรัฐประศาสนศาสตร์ (รศ.)", "item_type": "ถ่านไฟฉาย (Battery)", "quantity": 30.0}, {"name": "ทัศนีย์ ทองคำ", "department": "คณะรัฐประศาสนศาสตร์ (รศ.)", "item_type": "นาฬิกา (Clock)", "quantity": 3.0}, {"name": "วรวุฒิ แสงเรือง", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "เม้าส์ (Mouse)", "quantity": 1.0}, {"name": "วิไลรัตน์ เชวงกฤตยานนท์", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "สายชาร์จโทรศัพท์ (Phone charger)", "quantity": 3.0}, {"name": "วิไลรัตน์ เชวงกฤตยานนท์", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "หูฟัง (Earphones/Headphones)", "quantity": 4.0}, {"name": "ปาริชาติ บ่อคำ", "department": "คณะนิเทศศาสตร์และนวัตกรรมการจัดการ (นน.)", "item_type": "หูฟัง (Earphones/Headphones)", "quantity": 6.0}, {"name": "ปาริชาติ บ่อคำ", "department": "คณะนิเทศศาสตร์และนวัตกรรมการจัดการ (นน.)", "item_type": "เม้าส์ (Mouse)", "quantity": 3.0}, {"name": "ปาริชาติ บ่อคำ", "department": "คณะนิเทศศาสตร์และนวัตกรรมการจัดการ (นน.)", "item_type": "ถ่านไฟฉาย (Battery)", "quantity": 2.0}, {"name": "นางสาวอรจารีย์ อาจหาญ", "department": "คณะรัฐประศาสนศาสตร์ (รศ.)", "item_type": "โทรศัพท์มือถือ (Phone)", "quantity": 2.0}, {"name": "นางสาวอรจารีย์ อาจหาญ", "department": "คณะรัฐประศาสนศาสตร์ (รศ.)", "item_type": "แบตเตอรี่โทรศัพท์ (Phone battery)", "quantity": 2.0}, {"name": "ศรัญญา วงษ์มาน", "department": "คณะรัฐประศาสนศาสตร์ (รศ.)", "item_type": "โทรศัพท์มือถือ (Phone)", "quantity": 1.0}, {"name": "ศรัญญา วงษ์มาน", "department": "คณะรัฐประศาสนศาสตร์ (รศ.)", "item_type": "แบตเตอรี่โทรศัพท์ (Phone battery)", "quantity": 1.0}, {"name": "ศรัญญา วงษ์มาน", "department": "คณะรัฐประศาสนศาสตร์ (รศ.)", "item_type": "แท็บเล็ต (Tablet)", "quantity": 1.0}, {"name": "ศรัญญา วงษ์มาน", "department": "คณะรัฐประศาสนศาสตร์ (รศ.)", "item_type": "อแดปเตอร์ (Adapter)", "quantity": 3.0}, {"name": "ศรัญญา วงษ์มาน", "department": "คณะรัฐประศาสนศาสตร์ (รศ.)", "item_type": "เม้าส์ (Mouse)", "quantity": 2.0}, {"name": "ศรัญญา วงษ์มาน", "department": "คณะรัฐประศาสนศาสตร์ (รศ.)", "item_type": "เครื่องคิดเลข (Calculator)", "quantity": 2.0}, {"name": "ศรัญญา วงษ์มาน", "department": "คณะรัฐประศาสนศาสตร์ (รศ.)", "item_type": "รีโมท (Remote)", "quantity": 2.0}, {"name": "ภาวิณี ภางาม", "department": "คณะรัฐประศาสนศาสตร์ (รศ.)", "item_type": "แท็บเล็ต (Tablet)", "quantity": 2.0}, {"name": "ภาวิณี ภางาม", "department": "คณะรัฐประศาสนศาสตร์ (รศ.)", "item_type": "เครื่องคิดเลข (Calculator)", "quantity": 1.0}, {"name": "ศรัญญา วงษ์มาน", "department": "คณะรัฐประศาสนศาสตร์ (รศ.)", "item_type": "เม้าส์ (Mouse)", "quantity": 2.0}, {"name": "ศรัญญา วงษ์มาน", "department": "คณะรัฐประศาสนศาสตร์ (รศ.)", "item_type": "รีโมท (Remote)", "quantity": 2.0}, {"name": "สุนทรพจน์  ไทยพ่วง", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "หูฟัง (Earphones/Headphones)", "quantity": 1.0}, {"name": "สุนทรพจน์  ไทยพ่วง", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "ฮาร์ดดิสก์ (Hard disk)", "quantity": 1.0}, {"name": "สายพิน  ทองคำ", "department": "คณะรัฐประศาสนศาสตร์ (รศ.)", "item_type": "โทรศัพท์มือถือ (Phone)", "quantity": 1.0}, {"name": "สายพิน  ทองคำ", "department": "คณะรัฐประศาสนศาสตร์ (รศ.)", "item_type": "แบตเตอรี่โทรศัพท์ (Phone battery)", "quantity": 1.0}, {"name": "สายพิน  ทองคำ", "department": "คณะรัฐประศาสนศาสตร์ (รศ.)", "item_type": "แท็บเล็ต (Tablet)", "quantity": 1.0}, {"name": "สายพิน  ทองคำ", "department": "คณะรัฐประศาสนศาสตร์ (รศ.)", "item_type": "หูฟัง (Earphones/Headphones)", "quantity": 1.0}, {"name": "พวงผกา ศรีระษา", "department": "สำนักสิริพัฒนา (สพ.)", "item_type": "โทรศัพท์มือถือ (Phone)", "quantity": 2.0}, {"name": "พวงผกา ศรีระษา", "department": "สำนักสิริพัฒนา (สพ.)", "item_type": "แบตเตอรี่โทรศัพท์ (Phone battery)", "quantity": 2.0}, {"name": "พวงผกา ศรีระษา", "department": "สำนักสิริพัฒนา (สพ.)", "item_type": "สายชาร์จโทรศัพท์ (Phone charger)", "quantity": 2.0}, {"name": "พวงผกา ศรีระษา", "department": "สำนักสิริพัฒนา (สพ.)", "item_type": "อแดปเตอร์ (Adapter)", "quantity": 1.0}, {"name": "พวงผกา ศรีระษา", "department": "สำนักสิริพัฒนา (สพ.)", "item_type": "หูฟัง (Earphones/Headphones)", "quantity": 1.0}, {"name": "พวงผกา ศรีระษา", "department": "สำนักสิริพัฒนา (สพ.)", "item_type": "ถ่านไฟฉาย (Battery)", "quantity": 4.0}, {"name": "พวงผกา ศรีระษา", "department": "สำนักสิริพัฒนา (สพ.)", "item_type": "จอยเกม (Joystick)", "quantity": 1.0}, {"name": "พวงผกา ศรีระษา", "department": "สำนักสิริพัฒนา (สพ.)", "item_type": "การ์ดรีดเดอร์ (Card reader) / ยูเอสบี (USB)", "quantity": 1.0}, {"name": "พวงผกา ศรีระษา", "department": "สำนักสิริพัฒนา (สพ.)", "item_type": "รีโมท (Remote)", "quantity": 1.0}, {"name": "พวงผกา ศรีระษา", "department": "สำนักสิริพัฒนา (สพ.)", "item_type": "ไดร์เป่าผม (Hair dryer)", "quantity": 1.0}, {"name": "Natthasath Saksupanara", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "สายชาร์จโทรศัพท์ (Phone charger)", "quantity": 1.0}, {"name": "Natthasath Saksupanara", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "อแดปเตอร์ (Adapter)", "quantity": 1.0}, {"name": "Natthasath Saksupanara", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "หูฟัง (Earphones/Headphones)", "quantity": 1.0}, {"name": "Natthasath Saksupanara", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "ลำโพง (Speakers)", "quantity": 1.0}, {"name": "Natthasath Saksupanara", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "เม้าส์ (Mouse)", "quantity": 1.0}, {"name": "Natthasath Saksupanara", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "คีย์บอร์ด (Keyboard)", "quantity": 1.0}, {"name": "Natthasath Saksupanara", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "สายชาร์จโน๊ตบุ๊ก (Laptop charger)", "quantity": 1.0}, {"name": "Natthasath Saksupanara", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "อะแดปเตอร์ (Adaptor)", "quantity": 1.0}, {"name": "Natthasath Saksupanara", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "ถ่านไฟฉาย (Battery)", "quantity": 1.0}, {"name": "ปรียาภรณ์ โกฏิตระกูล", "department": "คณะรัฐประศาสนศาสตร์ (รศ.)", "item_type": "รีโมท (Remote)", "quantity": 2.0}, {"name": "ส่งศักดิ์ โสภาพ", "department": "กองคลังและพัสดุ (กค.)", "item_type": "อุปกรณ์สำรองไฟ (UPS)", "quantity": 1.0}, {"name": "มนัญชญาด์ กิ่งจันทร์", "department": "คณะรัฐประศาสนศาสตร์ (รศ.)", "item_type": "หูฟัง (Earphones/Headphones)", "quantity": 1.0}, {"name": "มนัญชญาด์ กิ่งจันทร์", "department": "คณะรัฐประศาสนศาสตร์ (รศ.)", "item_type": "โทรศัพท์บ้าน (Telephone)", "quantity": 1.0}, {"name": "มนัญชญาด์ กิ่งจันทร์", "department": "คณะรัฐประศาสนศาสตร์ (รศ.)", "item_type": "เม้าส์ (Mouse)", "quantity": 1.0}, {"name": "มนัญชญาด์ กิ่งจันทร์", "department": "คณะรัฐประศาสนศาสตร์ (รศ.)", "item_type": "ถ่านไฟฉาย (Battery)", "quantity": 9.0}, {"name": "มนัญชญาด์ กิ่งจันทร์", "department": "คณะรัฐประศาสนศาสตร์ (รศ.)", "item_type": "นาฬิกา (Clock)", "quantity": 3.0}, {"name": "เบญจพร อั้นทอง", "department": "คณะรัฐประศาสนศาสตร์ (รศ.)", "item_type": "แบตเตอรี่โทรศัพท์ (Phone battery)", "quantity": 1.0}, {"name": "เบญจพร อั้นทอง", "department": "คณะรัฐประศาสนศาสตร์ (รศ.)", "item_type": "หูฟัง (Earphones/Headphones)", "quantity": 3.0}, {"name": "เบญจพร อั้นทอง", "department": "คณะรัฐประศาสนศาสตร์ (รศ.)", "item_type": "รีโมท (Remote)", "quantity": 2.0}, {"name": "เบญจพร อั้นทอง", "department": "คณะรัฐประศาสนศาสตร์ (รศ.)", "item_type": "เครื่องเล่น MP3 (MP3 player)", "quantity": 2.0}, {"name": "สิริพักตร์ โมงขุนทด", "department": "คณะรัฐประศาสนศาสตร์ (รศ.)", "item_type": "อแดปเตอร์ (Adapter)", "quantity": 1.0}, {"name": "สิริพักตร์ โมงขุนทด", "department": "คณะรัฐประศาสนศาสตร์ (รศ.)", "item_type": "คีย์บอร์ด (Keyboard)", "quantity": 1.0}, {"name": "สิริพักตร์ โมงขุนทด", "department": "คณะรัฐประศาสนศาสตร์ (รศ.)", "item_type": "นาฬิกา (Clock)", "quantity": 5.0}, {"name": "ศรณา ชาติมาลา", "department": "กองยุทธศาสตร์และแผนงาน (กผ.)", "item_type": "สายชาร์จโทรศัพท์ (Phone charger)", "quantity": 1.0}, {"name": "ศรณา ชาติมาลา", "department": "กองยุทธศาสตร์และแผนงาน (กผ.)", "item_type": "อแดปเตอร์ (Adapter)", "quantity": 2.0}, {"name": "ศรณา ชาติมาลา", "department": "กองยุทธศาสตร์และแผนงาน (กผ.)", "item_type": "ถ่านไฟฉาย (Battery)", "quantity": 35.0}, {"name": "ศรณา ชาติมาลา", "department": "กองยุทธศาสตร์และแผนงาน (กผ.)", "item_type": "รีโมท (Remote)", "quantity": 1.0}, {"name": "นิตยา พะวงษ์", "department": "กองคลังและพัสดุ (กค.)", "item_type": "โทรศัพท์มือถือ (Phone)", "quantity": 1.0}, {"name": "นิตยา พะวงษ์", "department": "กองคลังและพัสดุ (กค.)", "item_type": "แบตเตอรี่โทรศัพท์ (Phone battery)", "quantity": 1.0}, {"name": "นิตยา พะวงษ์", "department": "กองคลังและพัสดุ (กค.)", "item_type": "หูฟัง (Earphones/Headphones)", "quantity": 2.0}, {"name": "นิตยา พะวงษ์", "department": "กองคลังและพัสดุ (กค.)", "item_type": "โน๊ตบุ๊ก (Laptop)", "quantity": 1.0}, {"name": "นิตยา พะวงษ์", "department": "กองคลังและพัสดุ (กค.)", "item_type": "แบตเตอรี่โน๊ตบุ๊ก (Laptop battery)", "quantity": 1.0}, {"name": "นิตยา พะวงษ์", "department": "กองคลังและพัสดุ (กค.)", "item_type": "เม้าส์ (Mouse)", "quantity": 1.0}, {"name": "นิตยา พะวงษ์", "department": "กองคลังและพัสดุ (กค.)", "item_type": "สายชาร์จโน๊ตบุ๊ก (Laptop charger)", "quantity": 1.0}, {"name": "นิตยา พะวงษ์", "department": "กองคลังและพัสดุ (กค.)", "item_type": "อะแดปเตอร์ (Adaptor)", "quantity": 2.0}, {"name": "นิตยา พะวงษ์", "department": "กองคลังและพัสดุ (กค.)", "item_type": "กล้องถ่ายรูป (Camera)", "quantity": 1.0}, {"name": "นิตยา พะวงษ์", "department": "กองคลังและพัสดุ (กค.)", "item_type": "เครื่องเล่น DVD (DVD player)", "quantity": 1.0}, {"name": "นิตยา พะวงษ์", "department": "กองคลังและพัสดุ (กค.)", "item_type": "อินเตอร์เน็ตเราเตอร์ (Internet router)", "quantity": 1.0}, {"name": "นิตยา พะวงษ์", "department": "กองคลังและพัสดุ (กค.)", "item_type": "ไดร์เป่าผม (Hair dryer)", "quantity": 1.0}, {"name": "นราวรรณ พลทรัพย์", "department": "สำนักบรรณสารการพัฒนา (บส.)", "item_type": "สายชาร์จโทรศัพท์ (Phone charger)", "quantity": 1.0}, {"name": "นางสาวภัทรลดา  วรพันธ์", "department": "กองคลังและพัสดุ (กค.)", "item_type": "ฮาร์ดดิสก์ (Hard disk)", "quantity": 1.0}, {"name": "นางสาวภัทรลดา  วรพันธ์", "department": "กองคลังและพัสดุ (กค.)", "item_type": "ถ่านไฟฉาย (Battery)", "quantity": 2.0}, {"name": "นางสาวภัทรลดา  วรพันธ์", "department": "กองคลังและพัสดุ (กค.)", "item_type": "เครื่องคิดเลข (Calculator)", "quantity": 1.0}, {"name": "นางสาวภัทรลดา  วรพันธ์", "department": "กองคลังและพัสดุ (กค.)", "item_type": "รีโมท (Remote)", "quantity": 1.0}, {"name": "มารยาท  ซิมเจริญ", "department": "กองคลังและพัสดุ (กค.)", "item_type": "ถ่านไฟฉาย (Battery)", "quantity": 5.0}, {"name": "วรนุช  ปราณี", "department": "กองคลังและพัสดุ (กค.)", "item_type": "โทรศัพท์มือถือ (Phone)", "quantity": 2.0}, {"name": "วรนุช  ปราณี", "department": "กองคลังและพัสดุ (กค.)", "item_type": "แท็บเล็ต (Tablet)", "quantity": 2.0}, {"name": "วรนุช  ปราณี", "department": "กองคลังและพัสดุ (กค.)", "item_type": "สายชาร์จโทรศัพท์ (Phone charger)", "quantity": 6.0}, {"name": "กาญจนา พุ่มพวง", "department": "กองคลังและพัสดุ (กค.)", "item_type": "อุปกรณ์สำรองไฟ (UPS)", "quantity": 1.0}, {"name": "ปรียาภรณ์ ครุฑใจแผ้ว", "department": "กองคลังและพัสดุ (กค.)", "item_type": "สายชาร์จโทรศัพท์ (Phone charger)", "quantity": 9.0}, {"name": "ปรียาภรณ์ ครุฑใจแผ้ว", "department": "กองคลังและพัสดุ (กค.)", "item_type": "หูฟัง (Earphones/Headphones)", "quantity": 4.0}, {"name": "ปรียาภรณ์ ครุฑใจแผ้ว", "department": "กองคลังและพัสดุ (กค.)", "item_type": "ลำโพง (Speakers)", "quantity": 1.0}, {"name": "ปรียาภรณ์ ครุฑใจแผ้ว", "department": "กองคลังและพัสดุ (กค.)", "item_type": "การ์ดรีดเดอร์ (Card reader) / ยูเอสบี (USB)", "quantity": 1.0}, {"name": "มิ้น", "department": "กองคลังและพัสดุ (กค.)", "item_type": "สายชาร์จโทรศัพท์ (Phone charger)", "quantity": 3.0}, {"name": "มิ้น", "department": "กองคลังและพัสดุ (กค.)", "item_type": "อแดปเตอร์ (Adapter)", "quantity": 4.0}, {"name": "มิ้น", "department": "กองคลังและพัสดุ (กค.)", "item_type": "หูฟัง (Earphones/Headphones)", "quantity": 1.0}, {"name": "มิ้น", "department": "กองคลังและพัสดุ (กค.)", "item_type": "เม้าส์ (Mouse)", "quantity": 2.0}, {"name": "มิ้น", "department": "กองคลังและพัสดุ (กค.)", "item_type": "เครื่องเล่น DVD (DVD player)", "quantity": 1.0}, {"name": "มิ้น", "department": "กองคลังและพัสดุ (กค.)", "item_type": "รีโมท (Remote)", "quantity": 1.0}, {"name": "มิ้น", "department": "กองคลังและพัสดุ (กค.)", "item_type": "อุปกรณ์สำรองไฟ (UPS)", "quantity": 1.0}, {"name": "ธิติภา จันทรอาภา", "department": "กองคลังและพัสดุ (กค.)", "item_type": "หูฟัง (Earphones/Headphones)", "quantity": 2.0}, {"name": "ปนัตตา แก้วเศษ", "department": "กองคลังและพัสดุ (กค.)", "item_type": "สายชาร์จโทรศัพท์ (Phone charger)", "quantity": 16.0}, {"name": "ปนัตตา แก้วเศษ", "department": "กองคลังและพัสดุ (กค.)", "item_type": "อแดปเตอร์ (Adapter)", "quantity": 1.0}, {"name": "ปนัตตา แก้วเศษ", "department": "กองคลังและพัสดุ (กค.)", "item_type": "หูฟัง (Earphones/Headphones)", "quantity": 1.0}, {"name": "ปนัตตา แก้วเศษ", "department": "กองคลังและพัสดุ (กค.)", "item_type": "ลำโพง (Speakers)", "quantity": 3.0}, {"name": "ปนัตตา แก้วเศษ", "department": "กองคลังและพัสดุ (กค.)", "item_type": "เม้าส์ (Mouse)", "quantity": 5.0}, {"name": "ปนัตตา แก้วเศษ", "department": "กองคลังและพัสดุ (กค.)", "item_type": "คีย์บอร์ด (Keyboard)", "quantity": 3.0}, {"name": "ปนัตตา แก้วเศษ", "department": "กองคลังและพัสดุ (กค.)", "item_type": "ถ่านไฟฉาย (Battery)", "quantity": 10.0}, {"name": "ปนัตตา แก้วเศษ", "department": "กองคลังและพัสดุ (กค.)", "item_type": "รีโมท (Remote)", "quantity": 1.0}, {"name": "ณฐพัชร จันทร์วศิน", "department": "คณะรัฐประศาสนศาสตร์ (รศ.)", "item_type": "แบตเตอรี่โทรศัพท์ (Phone battery)", "quantity": 3.0}, {"name": "ณฐพัชร จันทร์วศิน", "department": "คณะรัฐประศาสนศาสตร์ (รศ.)", "item_type": "อแดปเตอร์ (Adapter)", "quantity": 26.0}, {"name": "ณฐพัชร จันทร์วศิน", "department": "คณะรัฐประศาสนศาสตร์ (รศ.)", "item_type": "โทรศัพท์บ้าน (Telephone)", "quantity": 1.0}, {"name": "ณฐพัชร จันทร์วศิน", "department": "คณะรัฐประศาสนศาสตร์ (รศ.)", "item_type": "เม้าส์ (Mouse)", "quantity": 6.0}, {"name": "ณฐพัชร จันทร์วศิน", "department": "คณะรัฐประศาสนศาสตร์ (รศ.)", "item_type": "ถ่านไฟฉาย (Battery)", "quantity": 103.0}, {"name": "คณิตรา แสงเรือง", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "โน๊ตบุ๊ก (Laptop)", "quantity": 1.0}, {"name": "คณิตรา แสงเรือง", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "แบตเตอรี่โน๊ตบุ๊ก (Laptop battery)", "quantity": 1.0}, {"name": "คณิตรา แสงเรือง", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "สายชาร์จโน๊ตบุ๊ก (Laptop charger)", "quantity": 1.0}, {"name": "คณิตรา แสงเรือง", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "อะแดปเตอร์ (Adaptor)", "quantity": 1.0}, {"name": "สรวิศ เจ็งสวัสดิ์", "department": "กองบริหารและพัฒนาทรัพยากรบุคคล (บค.)", "item_type": "เม้าส์ (Mouse)", "quantity": 1.0}, {"name": "กรองจิต สุขเกื้อ", "department": "สำนักบรรณสารการพัฒนา (บส.)", "item_type": "โทรศัพท์มือถือ (Phone)", "quantity": 2.0}, {"name": "กรองจิต สุขเกื้อ", "department": "สำนักบรรณสารการพัฒนา (บส.)", "item_type": "แบตเตอรี่โทรศัพท์ (Phone battery)", "quantity": 2.0}, {"name": "กรองจิต สุขเกื้อ", "department": "สำนักบรรณสารการพัฒนา (บส.)", "item_type": "สายชาร์จโทรศัพท์ (Phone charger)", "quantity": 1.0}, {"name": "ปัญชลี เรืองสมุทร", "department": "สำนักบรรณสารการพัฒนา (บส.)", "item_type": "เครื่องม้วนผม (Hair curler) / เครื่องหนีบผม (Hair straightener)", "quantity": 1.0}, {"name": "นฐพร พุฒเจริญ", "department": "สำนักบรรณสารการพัฒนา (บส.)", "item_type": "อแดปเตอร์ (Adapter)", "quantity": 1.0}, {"name": "นฐพร พุฒเจริญ", "department": "สำนักบรรณสารการพัฒนา (บส.)", "item_type": "ถ่านไฟฉาย (Battery)", "quantity": 2.0}, {"name": "นันทธภร ศิริโวหาร", "department": "สำนักบรรณสารการพัฒนา (บส.)", "item_type": "อแดปเตอร์ (Adapter)", "quantity": 2.0}, {"name": "นันทธภร ศิริโวหาร", "department": "สำนักบรรณสารการพัฒนา (บส.)", "item_type": "ถ่านไฟฉาย (Battery)", "quantity": 13.0}, {"name": "นันท์นภัส อุ่นนิ่ม", "department": "สำนักบรรณสารการพัฒนา (บส.)", "item_type": "สายชาร์จโทรศัพท์ (Phone charger)", "quantity": 10.0}, {"name": "นันท์นภัส อุ่นนิ่ม", "department": "สำนักบรรณสารการพัฒนา (บส.)", "item_type": "อแดปเตอร์ (Adapter)", "quantity": 3.0}, {"name": "นันท์นภัส อุ่นนิ่ม", "department": "สำนักบรรณสารการพัฒนา (บส.)", "item_type": "หูฟัง (Earphones/Headphones)", "quantity": 4.0}, {"name": "นันท์นภัส อุ่นนิ่ม", "department": "สำนักบรรณสารการพัฒนา (บส.)", "item_type": "คีย์บอร์ด (Keyboard)", "quantity": 2.0}, {"name": "ทิพวรรณ หล่อโลหพันธุ์", "department": "กองยุทธศาสตร์และแผนงาน (กผ.)", "item_type": "เม้าส์ (Mouse)", "quantity": 1.0}, {"name": "กศิมา คิ้วเจริญ", "department": "สำนักเทคโนโลยีดิจิทัลและสารสนเทศ IDT (ทส.)", "item_type": "สายชาร์จโน๊ตบุ๊ก (Laptop charger)", "quantity": 1.0}, {"name": "มัดยาดา ปรียากระ", "department": "สำนักบรรณสารการพัฒนา (บส.)", "item_type": "โทรศัพท์บ้าน (Telephone)", "quantity": 1.0}];
 const AVG_WEIGHT_KG = {
