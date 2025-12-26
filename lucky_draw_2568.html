@@ -288,8 +288,9 @@
             border-left: 3px solid #ffd700;
             border-radius: 0 8px 8px 0;
             font-size: 0.95rem;
-            display: flex;
-            justify-content: space-between;
+            display: grid;
+            grid-template-columns: 1fr auto auto;
+            gap: 10px;
             align-items: center;
             transition: all 0.3s ease;
         }
@@ -342,8 +343,9 @@
             background: linear-gradient(90deg, rgba(255, 68, 68, 0.15) 0%, transparent 100%);
             border-left: 3px solid #ff4444;
             border-radius: 0 8px 8px 0;
-            display: flex;
-            justify-content: space-between;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 10px;
             align-items: center;
         }
 
@@ -487,6 +489,48 @@
         .status.complete {
             color: #ffd700;
         }
+
+        /* Winner Input */
+        .winner-input {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #444;
+            border-radius: 5px;
+            padding: 8px 12px;
+            color: #fff;
+            font-family: 'Prompt', sans-serif;
+            font-size: 0.9rem;
+            width: 100%;
+            max-width: 200px;
+            transition: all 0.3s ease;
+        }
+
+        .winner-input:focus {
+            outline: none;
+            border-color: #ffd700;
+            background: rgba(255, 215, 0, 0.1);
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        }
+
+        .winner-input::placeholder {
+            color: #666;
+        }
+
+        .winner-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .save-indicator {
+            font-size: 0.8rem;
+            color: #00ff00;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .save-indicator.show {
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -538,7 +582,7 @@
                 <div class="section-title" id="section2" style="display:none;">รางวัลผู้บริหาร<span class="cursor" id="cursor2"></span></div>
                 <div id="prize-list"></div>
 
-                <div class="status" id="status">กดปุ่ม "เริ่มต้น" เพื่อแสดงผล</div>
+                <div class="status" id="status">กดปุ่ม "เริ่มต้น" เพื่อแสดงผล <span class="save-indicator" id="save-indicator">💾 บันทึกแล้ว</span></div>
             </div>
         </div>
     </div>
@@ -680,43 +724,43 @@
         ];
 
         // Gift List Data
-        const giftList = [
-            { name: 'พี่จัส', from: '1' },
-            { name: 'พี่มัด', from: '2' },
-            { name: 'พี่อ้น', from: '3' },
-            { name: 'พี่จวง', from: '4' },
-            { name: 'ผอ.แอน', from: '5' },
-            { name: 'เฟิร์ส', from: '6' },
-            { name: 'พี่ติ๊ก', from: '7' },
-            { name: 'พี่กั๊ก', from: '8' },
-            { name: 'พี่ยอด', from: '9' },
-            { name: 'พี่ป้อม', from: '10' },
-            { name: 'โฟกัส', from: '11' },
-            { name: 'ซิ้น', from: '12' },
-            { name: 'พี่จั๊ม', from: '13' },
-            { name: 'พี่ยิ้ม', from: '14' },
-            { name: 'พี่จูน', from: '15' },
-            { name: 'พี่โอ๋', from: '16' },
-            { name: 'พี่พวง', from: '17' },
-            { name: 'พี่ตาล', from: '18' },
-            { name: 'พี่ตะกร้อ', from: '19' },
-            { name: 'มีมี่', from: '20' },
-            { name: 'พี่กุ้ง', from: '21' },
-            { name: 'พี่วัช', from: '22' },
-            { name: 'พี่อารี', from: '23' },
-            { name: 'พี่เฟย์', from: '24' },
-            { name: 'อ.อู๋', from: '25' },
-            { name: 'พี่แบงค์', from: '26' },
-            { name: 'พี่ดิว', from: '27' },
-            { name: 'พี่ตี๋', from: '28' },
-            { name: 'ผอ.กิต', from: '29' },
-            { name: 'พี่หน่อย', from: '30' },
-            { name: 'พี่เปิ้ล', from: '31' },
-            { name: 'พี่มุก', from: '32' },
-            { name: 'นิว', from: '33' }
+        let giftList = [
+            { name: 'พี่จัส', from: '1', winner: '' },
+            { name: 'พี่มัด', from: '2', winner: '' },
+            { name: 'พี่อ้น', from: '3', winner: '' },
+            { name: 'พี่จวง', from: '4', winner: '' },
+            { name: 'ผอ.แอน', from: '5', winner: '' },
+            { name: 'เฟิร์ส', from: '6', winner: '' },
+            { name: 'พี่ติ๊ก', from: '7', winner: '' },
+            { name: 'พี่กั๊ก', from: '8', winner: '' },
+            { name: 'พี่ยอด', from: '9', winner: '' },
+            { name: 'พี่ป้อม', from: '10', winner: '' },
+            { name: 'โฟกัส', from: '11', winner: '' },
+            { name: 'ซิ้น', from: '12', winner: '' },
+            { name: 'พี่จั๊ม', from: '13', winner: '' },
+            { name: 'พี่ยิ้ม', from: '14', winner: '' },
+            { name: 'พี่จูน', from: '15', winner: '' },
+            { name: 'พี่โอ๋', from: '16', winner: '' },
+            { name: 'พี่พวง', from: '17', winner: '' },
+            { name: 'พี่ตาล', from: '18', winner: '' },
+            { name: 'พี่ตะกร้อ', from: '19', winner: '' },
+            { name: 'มีมี่', from: '20', winner: '' },
+            { name: 'พี่กุ้ง', from: '21', winner: '' },
+            { name: 'พี่วัช', from: '22', winner: '' },
+            { name: 'พี่อารี', from: '23', winner: '' },
+            { name: 'พี่เฟย์', from: '24', winner: '' },
+            { name: 'อ.อู๋', from: '25', winner: '' },
+            { name: 'พี่แบงค์', from: '26', winner: '' },
+            { name: 'พี่ดิว', from: '27', winner: '' },
+            { name: 'พี่ตี๋', from: '28', winner: '' },
+            { name: 'ผอ.กิต', from: '29', winner: '' },
+            { name: 'พี่หน่อย', from: '30', winner: '' },
+            { name: 'พี่เปิ้ล', from: '31', winner: '' },
+            { name: 'พี่มุก', from: '32', winner: '' },
+            { name: 'นิว', from: '33', winner: '' }
         ];
 
-        const prizeList = [
+        let prizeList = [
             { prize: '300.-', winner: '', type: 'normal' },
             { prize: '300.-', winner: '', type: 'normal' },
             { prize: '500.-', winner: '', type: 'normal' },
@@ -744,6 +788,61 @@
             { prize: '🎰 JACKPOT 3,000.-', winner: 'พี่แอน (ผอ.กองบริหารงาน)', type: 'jackpot' },
             { prize: '🏆 SUPER JACKPOT 5,000.-', winner: 'อ.อู๋ (ผอ.สำนัก)', type: 'super' }
         ];
+
+        // LocalStorage functions
+        function saveToLocalStorage() {
+            const data = {
+                giftList: giftList,
+                prizeList: prizeList
+            };
+            localStorage.setItem('lucky_draw_2568', JSON.stringify(data));
+            showSaveIndicator();
+        }
+
+        function loadFromLocalStorage() {
+            const saved = localStorage.getItem('lucky_draw_2568');
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    if (data.giftList) {
+                        // Merge saved winners with default data
+                        giftList = giftList.map((item, index) => ({
+                            ...item,
+                            winner: data.giftList[index]?.winner || ''
+                        }));
+                    }
+                    if (data.prizeList) {
+                        // Merge saved winners with default data
+                        prizeList = prizeList.map((item, index) => ({
+                            ...item,
+                            winner: data.prizeList[index]?.winner || item.winner || ''
+                        }));
+                    }
+                } catch (e) {
+                    console.error('Error loading data:', e);
+                }
+            }
+        }
+
+        function showSaveIndicator() {
+            const indicator = document.getElementById('save-indicator');
+            if (indicator) {
+                indicator.classList.add('show');
+                setTimeout(() => {
+                    indicator.classList.remove('show');
+                }, 2000);
+            }
+        }
+
+        function updateGiftWinner(index, value) {
+            giftList[index].winner = value;
+            saveToLocalStorage();
+        }
+
+        function updatePrizeWinner(index, value) {
+            prizeList[index].winner = value;
+            saveToLocalStorage();
+        }
 
         // Create floating particles
         function createParticles() {
@@ -881,6 +980,10 @@
                 div.innerHTML = `
                     <span><span class="item-number">#${i + 1}</span><span class="item-name">${item.name}</span></span>
                     <span class="item-prize">ของขวัญ ${item.from}</span>
+                    <div class="winner-container">
+                        <input type="text" class="winner-input" placeholder="ผู้ได้รับ" value="${item.winner}"
+                            oninput="updateGiftWinner(${i}, this.value)">
+                    </div>
                 `;
                 giftContainer.appendChild(div);
                 await sleep(80);
@@ -897,18 +1000,21 @@
             for (let i = 0; i < prizeList.length; i++) {
                 const item = prizeList[i];
                 const div = document.createElement('div');
-                
+
                 let className = 'prize-item';
                 if (item.type === 'jackpot') className += ' jackpot';
                 if (item.type === 'super') className += ' prize-item super-jackpot';
-                
+
                 div.className = className;
                 div.innerHTML = `
                     <span><span class="item-number">#${i + 1}</span><span class="prize-amount">${item.prize}</span></span>
-                    <span class="prize-winner">${item.winner || '-'}</span>
+                    <div class="winner-container">
+                        <input type="text" class="winner-input" placeholder="ผู้ได้รับ" value="${item.winner}"
+                            oninput="updatePrizeWinner(${i}, this.value)">
+                    </div>
                 `;
                 prizeContainer.appendChild(div);
-                
+
                 const delay = item.type === 'super' ? 300 : (item.type === 'jackpot' ? 200 : 100);
                 await sleep(delay);
                 div.classList.add('show');
@@ -937,6 +1043,7 @@
         }
 
         // Initialize
+        loadFromLocalStorage();
         createParticles();
     </script>
 </body>
