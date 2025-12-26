@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>🎊 งานปีใหม่สำนัก 2568 🎊</title>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Prompt', sans-serif;
+            background: linear-gradient(135deg, #1a0a0a 0%, #2d1515 50%, #0d0d1a 100%);
+            min-height: 100vh;
+            color: #ffd700;
+            overflow-x: hidden;
+            padding: 20px;
+            padding-bottom: 100px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Floating particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: radial-gradient(circle, #ffd700 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 15s infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 30px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #ffd700, #ffec8b, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        .header .year {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #ff4444;
+            text-shadow: 0 0 20px rgba(255, 68, 68, 0.7);
+            margin: 10px 0;
+        }
+
+        .header .emoji {
+            font-size: 2rem;
+            animation: bounce 1s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 5px #ffd700); }
+            to { filter: drop-shadow(0 0 20px #ffd700); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Tab Navigation */
+        .tab-nav {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 15px 10px;
+            font-family: 'Prompt', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: 2px solid #ffd700;
+            background: transparent;
+            color: #ffd700;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(45deg, #ffd700, #ffec8b);
+            color: #1a0a0a;
+        }
+
+        .tab-btn:hover:not(.active) {
+            background: rgba(255, 215, 0, 0.2);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Terminal Style */
+        .terminal {
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #ffd700;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .terminal-header {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #333;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background: #ff5f56; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #27ca40; }
+
+        .section-title {
+            font-size: 1.2rem;
+            color: #00ff00;
+            margin: 25px 0 15px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::before {
+            content: '>';
+            color: #ffd700;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* Timeline Styles */
+        .timeline-item {
+            opacity: 0;
+            transform: translateX(-20px);
+            padding: 15px;
+            margin: 15px 0;
+            background: linear-gradient(90deg, rgba(0, 255, 128, 0.1) 0%, transparent 100%);
+            border-left: 3px solid #00ff80;
+            border-radius: 0 10px 10px 0;
+            position: relative;
+        }
+
+        .timeline-item.show {
+            opacity: 1;
+            transform: translateX(0);
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .timeline-time {
+            color: #00ff80;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .timeline-time::before {
+            content: '⏰';
+        }
+
+        .timeline-activity {
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .timeline-detail {
+            color: #aaa;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            padding-left: 10px;
+            border-left: 2px solid #333;
+        }
+
+        .timeline-detail ul {
+            list-style: none;
+            margin: 5px 0;
+        }
+
+        .timeline-detail li {
+            padding: 3px 0;
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .timeline-detail li::before {
+            content: '•';
+            color: #ffd700;
+            position: absolute;
+            left: 0;
+        }
+
+        .timeline-person {
+            color: #ff9900;
+            font-weight: 500;
+        }
+
+        .timeline-prize {
+            display: inline-block;
+            background: rgba(255, 215, 0, 0.2);
+            color: #ffd700;
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            margin-left: 5px;
+        }
+
+        .game-highlight {
+            background: linear-gradient(90deg, rgba(255, 68, 68, 0.15) 0%, transparent 100%) !important;
+            border-left-color: #ff4444 !important;
+        }
+
+        .game-highlight .timeline-time::before {
+            content: '🎮';
+        }
+
+        /* List items */
+        .list-item {
+            opacity: 0;
+            transform: translateX(-20px);
+            padding: 12px 15px;
+            margin: 8px 0;
+            background: linear-gradient(90deg, rgba(255, 215, 0, 0.1) 0%, transparent 100%);
+            border-left: 3px solid #ffd700;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.95rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .list-item.show {
+            opacity: 1;
+            transform: translateX(0);
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .list-item:hover {
+            background: linear-gradient(90deg, rgba(255, 215, 0, 0.2) 0%, transparent 100%);
+            transform: translateX(5px);
+        }
+
+        .item-number {
+            color: #888;
+            font-size: 0.8rem;
+            margin-right: 10px;
+        }
+
+        .item-name {
+            flex: 1;
+            color: #fff;
+        }
+
+        .item-prize {
+            color: #ffd700;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* Prize items */
+        .prize-item {
+            opacity: 0;
+            transform: translateX(-20px);
+            padding: 15px;
+            margin: 10px 0;
+            background: linear-gradient(90deg, rgba(255, 68, 68, 0.15) 0%, transparent 100%);
+            border-left: 3px solid #ff4444;
+            border-radius: 0 8px 8px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .prize-item.show {
+            opacity: 1;
+            transform: translateX(0);
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .prize-amount {
+            color: #ff4444;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .prize-winner {
+            color: #00ff00;
+            font-size: 0.9rem;
+        }
+
+        /* Jackpot style */
+        .jackpot {
+            background: linear-gradient(90deg, rgba(255, 215, 0, 0.25) 0%, rgba(255, 68, 68, 0.15) 100%) !important;
+            border-left: 3px solid #ffd700 !important;
+            animation: jackpotGlow 1s ease-in-out infinite alternate;
+        }
+
+        .jackpot.show {
+            animation: slideIn 0.5s ease-out, jackpotGlow 1s ease-in-out infinite alternate;
+        }
+
+        @keyframes jackpotGlow {
+            from { box-shadow: 0 0 10px rgba(255, 215, 0, 0.3); }
+            to { box-shadow: 0 0 25px rgba(255, 215, 0, 0.6); }
+        }
+
+        .jackpot .prize-amount {
+            color: #ffd700;
+            font-size: 1.3rem;
+        }
+
+        /* Super Jackpot */
+        .super-jackpot {
+            background: linear-gradient(90deg, rgba(255, 0, 128, 0.2) 0%, rgba(255, 215, 0, 0.2) 50%, rgba(0, 255, 128, 0.2) 100%) !important;
+            border: 2px solid #ffd700 !important;
+            border-radius: 10px !important;
+            padding: 20px !important;
+        }
+
+        .super-jackpot.show {
+            animation: slideIn 0.5s ease-out, rainbowGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes rainbowGlow {
+            0% { box-shadow: 0 0 20px rgba(255, 0, 128, 0.5); }
+            33% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.5); }
+            66% { box-shadow: 0 0 20px rgba(0, 255, 128, 0.5); }
+            100% { box-shadow: 0 0 20px rgba(255, 0, 128, 0.5); }
+        }
+
+        .super-jackpot .prize-amount {
+            font-size: 1.5rem;
+            background: linear-gradient(45deg, #ff0080, #ffd700, #00ff80);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Controls */
+        .controls {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 100;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            font-size: 1rem;
+            font-family: 'Prompt', sans-serif;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-start {
+            background: linear-gradient(45deg, #ffd700, #ffec8b);
+            color: #1a0a0a;
+            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
+        }
+
+        .btn-start:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.6);
+        }
+
+        .btn-reset {
+            background: linear-gradient(45deg, #444, #666);
+            color: #fff;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-reset:hover {
+            transform: translateY(-3px);
+        }
+
+        /* Loading cursor */
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 20px;
+            background: #ffd700;
+            animation: cursorBlink 0.8s infinite;
+            margin-left: 5px;
+            vertical-align: middle;
+        }
+
+        @keyframes cursorBlink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* Status */
+        .status {
+            text-align: center;
+            color: #888;
+            font-size: 0.9rem;
+            margin-top: 20px;
+            padding: 10px;
+        }
+
+        .status.running {
+            color: #00ff00;
+        }
+
+        .status.complete {
+            color: #ffd700;
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Particles -->
+    <div class="particles" id="particles"></div>
+
+    <div class="container">
+        <div class="header">
+            <div class="emoji">🎊🧧🎉</div>
+            <h1>งานปีใหม่สำนัก</h1>
+            <div class="year">ปีใหม่ 2568</div>
+            <div class="emoji">🐍✨🎁</div>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="tab-nav">
+            <button class="tab-btn active" onclick="switchTab('schedule')">📋 กำหนดการ</button>
+            <button class="tab-btn" onclick="switchTab('lottery')">🎰 จับฉลาก</button>
+        </div>
+
+        <!-- Schedule Tab -->
+        <div class="tab-content active" id="schedule-tab">
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-dot dot-red"></div>
+                    <div class="terminal-dot dot-yellow"></div>
+                    <div class="terminal-dot dot-green"></div>
+                </div>
+
+                <div class="section-title">กำหนดการงานปีใหม่<span class="cursor" id="cursor-schedule"></span></div>
+                <div id="schedule-list"></div>
+
+                <div class="status" id="status-schedule">กดปุ่ม "เริ่มต้น" เพื่อแสดงกำหนดการ</div>
+            </div>
+        </div>
+
+        <!-- Lottery Tab -->
+        <div class="tab-content" id="lottery-tab">
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-dot dot-red"></div>
+                    <div class="terminal-dot dot-yellow"></div>
+                    <div class="terminal-dot dot-green"></div>
+                </div>
+
+                <div class="section-title" id="section1">รายชื่อจับฉลากของขวัญ<span class="cursor" id="cursor1"></span></div>
+                <div id="gift-list"></div>
+
+                <div class="section-title" id="section2" style="display:none;">รางวัลผู้บริหาร<span class="cursor" id="cursor2"></span></div>
+                <div id="prize-list"></div>
+
+                <div class="status" id="status">กดปุ่ม "เริ่มต้น" เพื่อแสดงผล</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button class="btn btn-start" id="startBtn" onclick="startCurrentTab()">🎬 เริ่มต้น</button>
+        <button class="btn btn-reset" id="resetBtn" onclick="resetCurrentTab()" style="display:none;">🔄 รีเซ็ต</button>
+    </div>
+
+    <script>
+        // Current tab
+        let currentTab = 'schedule';
+        let isRunning = false;
+        let currentTimeout = null;
+        let scheduleShown = false;
+        let lotteryShown = false;
+
+        // Schedule Data
+        const scheduleData = [
+            {
+                time: '11:30 น.',
+                activity: '🍽️ รับประทานอาหารกลางวัน',
+                details: [],
+                type: 'normal'
+            },
+            {
+                time: '12:00 น.',
+                activity: '🎤 เปิดงานปีใหม่',
+                details: [
+                    'MC ทักทายต้อนรับทุกคน',
+                    '<span class="timeline-person">ผศ.ดร.อัครนันท์ พงศธรวิวัฒน์ (อ.อู๋)</span> กล่าวเปิดงาน'
+                ],
+                type: 'normal'
+            },
+            {
+                time: '12:30 น.',
+                activity: '🎁 มอบของขวัญผู้บริหาร',
+                details: [
+                    '<span class="timeline-person">เฟิร์ส</span> อวยพร + มอบของขวัญให้ <span class="timeline-person">อ.อู๋</span> (ผอ.สำนัก)',
+                    '<span class="timeline-person">โฟกัส</span> อวยพร + มอบของขวัญให้ <span class="timeline-person">พี่แอน</span> (ผอ.กองบริหารงาน)',
+                    '<span class="timeline-person">พี่จวง</span> อวยพร + มอบของขวัญให้ <span class="timeline-person">พี่กิต</span> (ผอ.กองเทคโน)'
+                ],
+                type: 'normal'
+            },
+            {
+                time: '12:35 น.',
+                activity: '💰 มอบรางวัลการปฏิบัติงาน (Bonus)',
+                details: [
+                    '<span class="timeline-person">พี่แอน</span> กล่าวนำ',
+                    '<span class="timeline-person">พี่จัส + พี่ยิ้ม</span> แจกซอง'
+                ],
+                type: 'normal'
+            },
+            {
+                time: '12:40 น.',
+                activity: '🎲 เล่นเกม + จับฉลาก',
+                details: [
+                    '🎰 จับฉลากของขวัญ 10 รางวัลแรก (คนที่มีสติ๊กเกอร์แปะใต้จาน)'
+                ],
+                type: 'game'
+            },
+            {
+                time: '',
+                activity: '🎮 เกมที่ 1: ควิซความรู้ (ตอบใน LINE)',
+                details: [
+                    'เล่นเดี่ยว 5 ข้อ <span class="timeline-prize">5 รางวัล</span>'
+                ],
+                type: 'game'
+            },
+            {
+                time: '',
+                activity: '🎮 เกมที่ 2: ทายยี่ห้อจาก Logo Font',
+                details: [
+                    'เล่นเดี่ยว 5 ข้อ <span class="timeline-prize">5 รางวัล</span>'
+                ],
+                type: 'game'
+            },
+            {
+                time: '',
+                activity: '🎰 จับฉลากของขวัญ 10 รางวัล',
+                details: [],
+                type: 'normal'
+            },
+            {
+                time: '',
+                activity: '🎮 เกมที่ 3.1: ทายเพลง',
+                details: [
+                    'แบ่ง 3 ทีม 15 ข้อ <span class="timeline-prize">10 รางวัล</span>'
+                ],
+                type: 'game'
+            },
+            {
+                time: '',
+                activity: '🎮 เกมที่ 3.2: ทายเพลงจาก Siri อ่านเนื้อเพลง',
+                details: [
+                    'แบ่ง 3 ทีม 5 ข้อ'
+                ],
+                type: 'game'
+            },
+            {
+                time: '',
+                activity: '🎰 จับฉลากของขวัญ 10 รางวัล + ที่เหลือ',
+                details: [],
+                type: 'normal'
+            },
+            {
+                time: '',
+                activity: '🎮 เกมที่ 4: 3 ฐาน',
+                details: [
+                    'ลูกบอลรู / ลูกโป่งคู่ / Treasure Hunt',
+                    'แบ่ง 3 ทีม <span class="timeline-prize">10 รางวัล</span>'
+                ],
+                type: 'game'
+            },
+            {
+                time: '',
+                activity: '⭐ Popular Vote',
+                details: [
+                    'ตะโกนชื่อ Nominee ที่หน้าจอ'
+                ],
+                type: 'normal'
+            },
+            {
+                time: '',
+                activity: '🏆 จับรางวัลผู้บริหาร',
+                details: [
+                    'Jackpot 2,000 / 3,000 / Super Jackpot 5,000'
+                ],
+                type: 'game'
+            },
+            {
+                time: '',
+                activity: '📦 เกมสำรอง: ทายรูป',
+                details: [
+                    'เล่นเดี่ยว 5 ข้อ <span class="timeline-prize">5 รางวัล</span>'
+                ],
+                type: 'game'
+            }
+        ];
+
+        // Gift List Data
+        const giftList = [
+            { name: 'พี่จัส', from: '1' },
+            { name: 'พี่มัด', from: '2' },
+            { name: 'พี่อ้น', from: '3' },
+            { name: 'พี่จวง', from: '4' },
+            { name: 'ผอ.แอน', from: '5' },
+            { name: 'เฟิร์ส', from: '6' },
+            { name: 'พี่ติ๊ก', from: '7' },
+            { name: 'พี่กั๊ก', from: '8' },
+            { name: 'พี่ยอด', from: '9' },
+            { name: 'พี่ป้อม', from: '10' },
+            { name: 'โฟกัส', from: '11' },
+            { name: 'ซิ้น', from: '12' },
+            { name: 'พี่จั๊ม', from: '13' },
+            { name: 'พี่ยิ้ม', from: '14' },
+            { name: 'พี่จูน', from: '15' },
+            { name: 'พี่โอ๋', from: '16' },
+            { name: 'พี่พวง', from: '17' },
+            { name: 'พี่ตาล', from: '18' },
+            { name: 'พี่ตะกร้อ', from: '19' },
+            { name: 'มีมี่', from: '20' },
+            { name: 'พี่กุ้ง', from: '21' },
+            { name: 'พี่วัช', from: '22' },
+            { name: 'พี่อารี', from: '23' },
+            { name: 'พี่เฟย์', from: '24' },
+            { name: 'อ.อู๋', from: '25' },
+            { name: 'พี่แบงค์', from: '26' },
+            { name: 'พี่ดิว', from: '27' },
+            { name: 'พี่ตี๋', from: '28' },
+            { name: 'ผอ.กิต', from: '29' },
+            { name: 'พี่หน่อย', from: '30' },
+            { name: 'พี่เปิ้ล', from: '31' },
+            { name: 'พี่มุก', from: '32' },
+            { name: 'นิว', from: '33' }
+        ];
+
+        const prizeList = [
+            { prize: '300.-', winner: '', type: 'normal' },
+            { prize: '300.-', winner: '', type: 'normal' },
+            { prize: '500.-', winner: '', type: 'normal' },
+            { prize: '500.-', winner: '', type: 'normal' },
+            { prize: '500.-', winner: '', type: 'normal' },
+            { prize: '500.-', winner: '', type: 'normal' },
+            { prize: '500.-', winner: '', type: 'normal' },
+            { prize: 'Lotus 300.-', winner: '', type: 'voucher' },
+            { prize: 'Lotus 300.-', winner: '', type: 'voucher' },
+            { prize: 'Lotus 300.-', winner: '', type: 'voucher' },
+            { prize: 'Lotus 300.-', winner: '', type: 'voucher' },
+            { prize: 'Lotus 300.-', winner: '', type: 'voucher' },
+            { prize: 'Lotus 500.-', winner: '', type: 'voucher' },
+            { prize: 'Lotus 500.-', winner: '', type: 'voucher' },
+            { prize: 'Lotus 500.-', winner: '', type: 'voucher' },
+            { prize: 'Lotus 500.-', winner: '', type: 'voucher' },
+            { prize: 'Lotus 500.-', winner: '', type: 'voucher' },
+            { prize: 'Lotus 500.-', winner: '', type: 'voucher' },
+            { prize: '1,000.-', winner: 'พี่โอ๋ (บริหาร)', type: 'normal' },
+            { prize: '1,000.-', winner: 'พี่ป้อม (ธุรการ)', type: 'normal' },
+            { prize: '1,000.-', winner: 'พี่ติ๊ก (MIS)', type: 'normal' },
+            { prize: '1,000.-', winner: 'พี่จูน (บริการ)', type: 'normal' },
+            { prize: '1,000.-', winner: 'พี่กุ้ง (โครงสร้าง)', type: 'normal' },
+            { prize: '🎰 JACKPOT 2,000.-', winner: 'พี่กิต (ผอ.กองเทคโน)', type: 'jackpot' },
+            { prize: '🎰 JACKPOT 3,000.-', winner: 'พี่แอน (ผอ.กองบริหารงาน)', type: 'jackpot' },
+            { prize: '🏆 SUPER JACKPOT 5,000.-', winner: 'อ.อู๋ (ผอ.สำนัก)', type: 'super' }
+        ];
+
+        // Create floating particles
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (10 + Math.random() * 10) + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        function sleep(ms) {
+            return new Promise(resolve => {
+                currentTimeout = setTimeout(resolve, ms);
+            });
+        }
+
+        // Tab switching
+        function switchTab(tab) {
+            currentTab = tab;
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            if (tab === 'schedule') {
+                document.querySelector('.tab-btn:nth-child(1)').classList.add('active');
+                document.getElementById('schedule-tab').classList.add('active');
+                updateControlButtons(scheduleShown);
+            } else {
+                document.querySelector('.tab-btn:nth-child(2)').classList.add('active');
+                document.getElementById('lottery-tab').classList.add('active');
+                updateControlButtons(lotteryShown);
+            }
+        }
+
+        function updateControlButtons(isShown) {
+            if (isShown) {
+                document.getElementById('startBtn').style.display = 'none';
+                document.getElementById('resetBtn').style.display = 'inline-block';
+            } else {
+                document.getElementById('startBtn').style.display = 'inline-block';
+                document.getElementById('resetBtn').style.display = 'none';
+            }
+        }
+
+        function startCurrentTab() {
+            if (currentTab === 'schedule') {
+                startSchedule();
+            } else {
+                startLottery();
+            }
+        }
+
+        function resetCurrentTab() {
+            if (currentTab === 'schedule') {
+                resetSchedule();
+            } else {
+                resetLottery();
+            }
+        }
+
+        // Schedule functions
+        async function startSchedule() {
+            if (isRunning) return;
+            isRunning = true;
+            scheduleShown = true;
+
+            document.getElementById('startBtn').style.display = 'none';
+            document.getElementById('resetBtn').style.display = 'inline-block';
+            document.getElementById('status-schedule').className = 'status running';
+            document.getElementById('status-schedule').textContent = '⏳ กำลังโหลดกำหนดการ...';
+
+            const container = document.getElementById('schedule-list');
+
+            for (let i = 0; i < scheduleData.length; i++) {
+                const item = scheduleData[i];
+                const div = document.createElement('div');
+                div.className = 'timeline-item' + (item.type === 'game' ? ' game-highlight' : '');
+                
+                let detailsHTML = '';
+                if (item.details.length > 0) {
+                    detailsHTML = `<div class="timeline-detail"><ul>${item.details.map(d => `<li>${d}</li>`).join('')}</ul></div>`;
+                }
+                
+                div.innerHTML = `
+                    ${item.time ? `<div class="timeline-time">${item.time}</div>` : ''}
+                    <div class="timeline-activity">${item.activity}</div>
+                    ${detailsHTML}
+                `;
+                container.appendChild(div);
+                await sleep(150);
+                div.classList.add('show');
+            }
+
+            document.getElementById('cursor-schedule').style.display = 'none';
+            document.getElementById('status-schedule').className = 'status complete';
+            document.getElementById('status-schedule').textContent = '✅ โหลดกำหนดการเสร็จสิ้น!';
+            isRunning = false;
+        }
+
+        function resetSchedule() {
+            if (currentTimeout) clearTimeout(currentTimeout);
+            isRunning = false;
+            scheduleShown = false;
+
+            document.getElementById('schedule-list').innerHTML = '';
+            document.getElementById('cursor-schedule').style.display = 'inline-block';
+            document.getElementById('startBtn').style.display = 'inline-block';
+            document.getElementById('resetBtn').style.display = 'none';
+            document.getElementById('status-schedule').className = 'status';
+            document.getElementById('status-schedule').textContent = 'กดปุ่ม "เริ่มต้น" เพื่อแสดงกำหนดการ';
+        }
+
+        // Lottery functions
+        async function startLottery() {
+            if (isRunning) return;
+            isRunning = true;
+            lotteryShown = true;
+
+            document.getElementById('startBtn').style.display = 'none';
+            document.getElementById('resetBtn').style.display = 'inline-block';
+            document.getElementById('status').className = 'status running';
+            document.getElementById('status').textContent = '⏳ กำลังประมวลผล...';
+
+            const giftContainer = document.getElementById('gift-list');
+            const prizeContainer = document.getElementById('prize-list');
+
+            // Show gift list
+            for (let i = 0; i < giftList.length; i++) {
+                const item = giftList[i];
+                const div = document.createElement('div');
+                div.className = 'list-item';
+                div.innerHTML = `
+                    <span><span class="item-number">#${i + 1}</span><span class="item-name">${item.name}</span></span>
+                    <span class="item-prize">ของขวัญ ${item.from}</span>
+                `;
+                giftContainer.appendChild(div);
+                await sleep(80);
+                div.classList.add('show');
+            }
+
+            document.getElementById('cursor1').style.display = 'none';
+            await sleep(500);
+
+            // Show prize section
+            document.getElementById('section2').style.display = 'block';
+
+            // Show prize list
+            for (let i = 0; i < prizeList.length; i++) {
+                const item = prizeList[i];
+                const div = document.createElement('div');
+                
+                let className = 'prize-item';
+                if (item.type === 'jackpot') className += ' jackpot';
+                if (item.type === 'super') className += ' prize-item super-jackpot';
+                
+                div.className = className;
+                div.innerHTML = `
+                    <span><span class="item-number">#${i + 1}</span><span class="prize-amount">${item.prize}</span></span>
+                    <span class="prize-winner">${item.winner || '-'}</span>
+                `;
+                prizeContainer.appendChild(div);
+                
+                const delay = item.type === 'super' ? 300 : (item.type === 'jackpot' ? 200 : 100);
+                await sleep(delay);
+                div.classList.add('show');
+            }
+
+            document.getElementById('cursor2').style.display = 'none';
+            document.getElementById('status').className = 'status complete';
+            document.getElementById('status').textContent = '✅ เสร็จสิ้น! สุขสันต์วันปีใหม่ 2568 🎉';
+            isRunning = false;
+        }
+
+        function resetLottery() {
+            if (currentTimeout) clearTimeout(currentTimeout);
+            isRunning = false;
+            lotteryShown = false;
+
+            document.getElementById('gift-list').innerHTML = '';
+            document.getElementById('prize-list').innerHTML = '';
+            document.getElementById('section2').style.display = 'none';
+            document.getElementById('cursor1').style.display = 'inline-block';
+            document.getElementById('cursor2').style.display = 'inline-block';
+            document.getElementById('startBtn').style.display = 'inline-block';
+            document.getElementById('resetBtn').style.display = 'none';
+            document.getElementById('status').className = 'status';
+            document.getElementById('status').textContent = 'กดปุ่ม "เริ่มต้น" เพื่อแสดงผล';
+        }
+
+        // Initialize
+        createParticles();
+    </script>
+</body>
+</html>
